@@ -1,0 +1,24 @@
+#2
+#This only returns solution to part 2
+
+f = open("20212.txt","r").read().splitlines()
+
+h = 0
+d = 0
+a = 0
+
+for i in range (len(f)):
+    count = 0
+    while f[i][count] != " ":
+        count += 1
+    num = int(f[i][count+1:])
+
+    if f[i][0] == "f":
+        h += num
+        d += a * num
+    elif f[i][0] == "u":
+        a -= num
+    elif f[i][0] == "d":
+        a += num
+
+print (h * d)
