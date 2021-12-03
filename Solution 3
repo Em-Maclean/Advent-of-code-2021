@@ -1,0 +1,67 @@
+#3
+#This only gives solution to part 2
+
+
+f = open("20213.txt","r").read().splitlines()
+
+
+m = f
+count = 0
+
+while len(f) > 1:
+    n = 0
+    for i in range (len(f)):
+        if f[i][count] == "1":
+            n += 1
+            
+    if n > len(f)/2:
+        b = "1"
+    elif n == len(f)/2:
+        b = "1"
+    else:
+        b = "0"
+
+    l = []
+    
+    for i in range (len(f)):
+        if f[i][count] == b:
+            l.append(f[i])
+    f = l
+    count += 1
+
+count = 0
+
+while len(m) > 1:
+    n = 0
+    for i in range (len(m)):
+        if m[i][count] == "1":
+            n += 1
+            
+    if n > len(m)/2:
+        b = "0"
+    elif n == len(m)/2:
+        b = "0"
+    else:
+        b = "1"
+
+    l = []
+    
+    for i in range (len(m)):
+        if m[i][count] == b:
+            l.append(m[i])
+    m = l
+    count += 1
+
+counter = 1
+o = 0
+c = 0
+
+for i in range (len(f[0])-1,-1,-1):
+    if f[0][i] == "1":
+        o += counter
+    if m[0][i] == "1":
+        c += counter
+
+    counter = counter * 2
+
+print (o * c)
