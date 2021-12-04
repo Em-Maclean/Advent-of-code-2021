@@ -1,0 +1,102 @@
+#4
+
+f = open("20214.txt","r").read().splitlines()
+
+num = [37,60,87,13,34,72,45,49,61,27,97,88,50,30,76,40,63,9,38,67,82,6,59,90,99,54,11,66,98,23,64,14,18,4,10,89,46,32,19,5,1,53,25,96,2,12,86,58,41,68,95,8,7,3,85,70,35,55,77,44,36,51,15,52,56,57,91,16,71,92,84,17,33,29,47,75,80,39,83,74,73,65,78,69,21,42,31,93,22,62,24,48,81,0,26,43,20,28,94,79]
+import math
+
+
+for i in range (len(f)):
+    p = f[i].split(" ")
+    f[i] = p
+    while '' in f[i]:
+        f[i].remove('')
+        
+
+for n in range (len(num)):
+    for i in range (len(f)):
+        for k in range (len(f[i])):
+            if f[i][k] == str(num[n]):
+                f[i][k] = "T"
+                
+                check = True
+                for m in range (len(f[i])):
+                    if f[i][m] != "T":
+                        check = False
+                line = (i+1)%6
+                start = i - line + 1
+                end = i + (6-line) 
+                
+                checked = True
+                for m in range (start,end):
+                  
+                    if f[m][k] != "T":
+                        checked = False
+                
+                if check == True or checked == True:
+
+                    c = 0
+                    for m in range (start,end):
+                        for t in range (len(f[m])):
+                            if f[m][t] != "T":
+                                c += int(f[m][t])
+                 
+                    print (c * num[n])
+                    break
+  
+
+
+l = []
+n = math.ceil(len(f)/6)
+for i in range (n):
+    l.append(None)
+
+for n in range (len(num)):
+    for i in range (len(f)):
+        for k in range (len(f[i])):
+            if f[i][k] == str(num[n]):
+                f[i][k] = "T"
+                
+                check = True
+                for m in range (len(f[i])):
+                    if f[i][m] != "T":
+                        check = False
+                line = (i+1)%6
+                start = i - line + 1
+                end = i + (6-line) 
+                
+                checked = True
+                for m in range (start,end):
+                  
+                    if f[m][k] != "T":
+                        checked = False
+                
+                if check == True or checked == True:
+                 
+                    l[int(((end + 1) / 6) - 1)] = "D"
+                    count = 0
+                    for p in range (len(l)):
+                        if l[p] != "D":
+                            count += 1
+                            ans = p
+                   
+                    if count == 0 and int(start / 6) == ans:
+                        c = 0
+                        for m in range (start,end):
+                            for t in range (len(f[m])):
+                                if f[m][t] != "T":
+                                    c += int(f[m][t])
+                        print (c * num[n], c, num[n])
+                        break
+                        
+                        
+                        
+                                    
+
+
+          
+                
+        
+            
+            
+
