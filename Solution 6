@@ -1,0 +1,25 @@
+#6
+
+f = open("20216.txt","r").read().split(",")
+
+l = [[8,0],[7,0],[6,0],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0]]
+
+for i in range (len(f)):
+    for k in range (len(l)):
+        if f[i] == str(l[k][0]):
+            l[k][1] += 1
+
+# change number here for each part
+for i in range (256):
+    keep = l[-1][1]
+    for k in range (len(l)-1,-1,-1):
+        l[k][1] = l[k-1][1]
+    l[2][1] += keep
+    l[0][1] = keep
+    
+
+count = 0
+for i in range (len(l)):
+    count += l[i][1]
+
+print (count)
