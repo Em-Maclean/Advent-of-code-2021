@@ -1,0 +1,78 @@
+# 5
+# This only gives answer to part 2
+
+
+f = open("20215.txt","r").read().splitlines()
+
+grid = []
+
+
+for i in range (1000):
+    l = []
+    for k in range (1000):
+        l.append(0)
+    grid.append(l)
+
+for i in range (len(f)):
+    count = 0
+    start = 0
+    while f[i][count] != ",":
+        count += 1
+    x1 = int(f[i][start:count])
+    
+    start = count
+    while f[i][count] != " ":
+        count += 1
+    y1 = int (f[i][start+1:count])
+
+    count += 1
+    while f[i][count] != " ":
+        count += 1
+
+    start = count + 1
+    while f[i][count] != ",":
+        count += 1
+    x2 = int(f[i][start:count])
+    
+    y2 = int (f[i][count+1:])
+
+   
+    if y1 == y2:
+        if x2 > x1:
+            for n in range (x1,x2+1):
+                grid[y1][n] += 1
+        else:
+            for n in range (x2,x1+1):
+                grid[y1][n] += 1
+    if x1 == x2:
+        if y2 > y1:
+            for n in range (y1,y2+1):
+                grid[n][x1] += 1
+        else:
+            for n in range (y2,y1+1):
+                grid[n][x1] += 1
+
+    if x1 != x2 and y1 != y2:
+        x = x1
+        y = y1
+        length = abs(x1 - x2)+1
+        if x1 > x2:
+            count = -1
+        else:
+            count = 1
+        if y1 > y2:
+            c = -1
+        else:
+            c = 1
+
+        for n in range (length):
+            grid[y][x] += 1
+            y += c
+            x += count
+
+counter = 0
+for i in range (len(grid)):
+    for k in range (len(grid[i])):
+        if grid[i][k] > 1:
+            counter += 1
+print (counter)
