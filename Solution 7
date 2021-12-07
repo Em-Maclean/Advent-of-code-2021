@@ -1,0 +1,29 @@
+#7
+# not the most efficient solution, takes about 1 min to do part 2
+
+f = open("20217.txt").read().split(",")
+
+l = []
+for i in range (1000):
+    l.append(0)
+
+
+for i in range (len(l)):
+    for k in range (len(f)):
+      
+        l[i] += abs(int(f[k]) - i)
+        
+print (min(l))
+
+
+
+for i in range (len(l)):
+    for k in range (len(f)):
+      
+        n = abs(int(f[k]) - i)
+        count = 1
+        for m in range (n):
+            l[i] += count
+            count += 1
+            
+print (min(l))
