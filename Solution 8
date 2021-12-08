@@ -1,0 +1,76 @@
+#8
+#This code only solves the second part
+
+f = open("20218.txt","r").read().splitlines()
+
+for i in range (len(f)):
+    f[i] = f[i].split(" ")
+
+count = 0
+
+
+for i in range (len(f)):
+
+    for k in range (f[i].index("|")):
+        if len(f[i][k]) == 2:
+            one = sorted(f[i][k])    
+        elif len(f[i][k]) == 3:
+            seven = sorted(f[i][k])
+        elif len(f[i][k]) == 4:
+            four = sorted(f[i][k])
+        elif len(f[i][k]) == 7:
+            eight = sorted(f[i][k])
+            
+    for k in range (f[i].index("|")):
+            
+        if len(f[i][k]) == 6:
+            if one[0] in f[i][k] and one[1] in f[i][k]:
+                if four[0] in f[i][k] and four[1] in f[i][k] and four[2] in f[i][k] and four[3] in f[i][k]:
+                    nine = sorted(f[i][k])
+                else:
+                    zero = sorted(f[i][k])
+            else:
+                six = sorted(f[i][k])
+                
+    for k in range (f[i].index("|")):
+        if len(f[i][k]) == 5:
+            if one[0] in f[i][k] and one[1] in f[i][k]:
+                three = sorted(f[i][k])
+            else:
+                check = False
+                for n in range (7):
+                    num = sorted(f[i][k] + chr(97+n))
+                    if num == nine:
+                        check = True
+                if check:
+                    five = sorted(f[i][k])
+                
+                else:
+                    two = sorted(f[i][k])
+    num = ""
+    for k in range (len(f[i])):
+        if k > f[i].index("|"):
+            if sorted(f[i][k]) == one:
+                num += "1"
+            if sorted(f[i][k]) == two:
+                num += "2"
+            if sorted(f[i][k]) == three:
+                num += "3"
+            if sorted(f[i][k]) == four:
+                num += "4"
+            if sorted(f[i][k]) == five:
+                num += "5"
+            if sorted(f[i][k]) == six:
+                num += "6"
+            if sorted(f[i][k]) == seven:
+                num += "7"
+            if sorted(f[i][k]) == eight:
+                num += "8"
+            if sorted(f[i][k]) == nine:
+                num += "9"
+            if sorted(f[i][k]) == zero:
+                num += "0"
+ 
+    count += int(num)
+                
+print (count)
