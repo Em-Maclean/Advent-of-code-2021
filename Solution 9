@@ -1,0 +1,72 @@
+
+#9
+
+f= open("20219.txt","r").read().splitlines()
+
+def findBasin(x,y,area):
+    if x < (len(f[y])-1):
+        if f[y][x+1] != "9" and str(y) + str(x+1) not in area:
+            area.append(str(y) + str(x+1))
+            findBasin(x+1,y,area)
+    if x > 0:
+        if f[y][x-1] != "9" and str(y) + str(x-1) not in area:
+            area.append(str(y) + str(x-1))
+            findBasin(x-1,y,area)
+    if y < (len(f)-1):
+        if f[y+1][x] != "9" and str(y+1) + str(x) not in area:
+            area.append(str(y+1) + str(x))
+            findBasin(x,y+1,area)
+    if y > 0:
+        if f[y-1][x] != "9" and str(y-1) + str(x) not in area:
+            area.append(str(y-1) + str(x))
+            findBasin(x,y-1,area)
+
+    return area
+
+
+count = 0
+
+
+for i in range (len(f)):
+    for k in range (len(f[i])):
+        top = 99
+        bottm = 99
+        left = 99
+        right = 99
+        if k < (len(f[i])-1):
+            right = int(f[i][k+1])
+        if k > 0:
+            left = int(f[i][k-1])
+        if i < (len(f)-1):
+            bottom = int(f[i+1][k])
+        if i > 0:
+            top = int(f[i-1][k])
+
+        if int(f[i][k]) < top and int(f[i][k]) < bottom and int(f[i][k]) < left and int(f[i][k]) < right:
+            count += int(f[i][k]) + 1
+print (count)
+
+final = []
+for i in range (len(f)):
+    for k in range (len(f[i])):
+        top = 99
+        bottm = 99
+        left = 99
+        right = 99
+        if k < (len(f[i])-1):
+            right = int(f[i][k+1])
+        if k > 0:
+            left = int(f[i][k-1])
+        if i < (len(f)-1):
+            bottom = int(f[i+1][k])
+        if i > 0:
+            top = int(f[i-1][k])
+
+        if int(f[i][k]) < top and int(f[i][k]) < bottom and int(f[i][k]) < left and int(f[i][k]) < right:
+            l = findBasin(k,i,[str(i)+str(k)])
+            final.append(len(l))
+
+final = sorted(final)
+print (final[-1] * final[-2] * final[-3])
+
+            
