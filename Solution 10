@@ -1,0 +1,123 @@
+
+#10
+
+f = open("202110.txt").read().splitlines()
+import math
+
+score = 0
+
+for i in range (len(f)):
+    l = []
+    for k in range (len(f[i])):
+        if f[i][k] == "{" or f[i][k] == "<" or f[i][k] == "(" or f[i][k] == "[": 
+            l.append(f[i][k])
+        else:
+            if l[-1] == "[":
+                if f[i][k] == "]":
+                    del l[-1]
+                else:
+                    
+                    if f[i][k] == ")":
+                        score += 3
+                    if f[i][k] == "}":
+                        score += 1197
+                    if f[i][k] == ">":
+                        score += 25137
+                    break
+            elif l[-1] == "(":
+                if f[i][k] == ")":
+                    del l[-1]
+                else:
+                    
+                    if f[i][k] == "]":
+                        score += 57
+                    if f[i][k] == "}":
+                        score += 1197
+                    if f[i][k] == ">":
+                        score += 25137
+                    break
+            elif l[-1] == "{":
+                if f[i][k] == "}":
+                    del l[-1]
+                else:
+                    
+                    if f[i][k] == ")":
+                        score += 3
+                    if f[i][k] == "]":
+                        score += 57
+                    if f[i][k] == ">":
+                        score += 25137
+                    break
+
+            else:
+                if f[i][k] == ">":
+                    del l[-1]
+                else:
+                    
+                    if f[i][k] == ")":
+                        score += 3
+                    if f[i][k] == "}":
+                        score += 1197
+                    if f[i][k] == "]":
+                        score += 57
+                    break
+print (score)
+score = []
+for i in range (len(f)):
+    l = []
+    cor = False
+    for k in range (len(f[i])):
+        if f[i][k] == "{" or f[i][k] == "<" or f[i][k] == "(" or f[i][k] == "[": 
+            l.append(f[i][k])
+        else:
+            if l[-1] == "[":
+                if f[i][k] == "]":
+                    del l[-1]
+                else:
+                    cor = True
+                    break
+            elif l[-1] == "(":
+                if f[i][k] == ")":
+                    del l[-1]
+                else:
+                    cor = True
+                    break
+            elif l[-1] == "{":
+                if f[i][k] == "}":
+                    del l[-1]
+                else:
+                    cor = True
+                    break
+
+            else:
+                if f[i][k] == ">":
+                    del l[-1]
+                else:
+                    cor = True
+                    break
+    if cor == False:
+        points = 0
+        for n in range (len(l)-1,-1,-1):
+            if l[n] == "{":
+                points = points * 5
+                points += 3
+            if l[n] == "(":
+                points = points * 5
+                points += 1
+            if l[n] == "[":
+                points = points * 5
+                points += 2
+            if l[n] == "<":
+                points = points * 5
+                points += 4
+        score.append(points)
+            
+score = sorted(score)
+n = math.ceil(len(score)/2) - 1
+print (score[n])
+
+
+
+
+
+
