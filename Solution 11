@@ -1,0 +1,79 @@
+#11
+
+def splited(word):
+    return [char for char in word]
+
+def flash(f,x,y,area,count):
+    f[y][x] = int(f[y][x])
+    if str(x) + str(y) not in area:
+        if f[y][x] >= 9:
+            area.append(str(x) + str(y))
+            count += 1
+            f[y][x] = 0
+            if y > 0:
+                count = flash(f,x,y-1,area,count)
+            if y < len(f)-1:
+                count = flash(f,x,y+1,area,count)
+            if x > 0:
+                count = flash(f,x-1,y,area,count)
+            if x < len(f[y])-1:
+                count = flash(f,x+1,y,area,count)
+            if x < len(f[y])-1 and y > 0:
+                count = flash(f,x+1,y-1,area,count)
+            if x < len(f[y])-1 and y < len(f[y])-1:
+                count = flash(f,x+1,y+1,area,count)
+            if x > 0 and y > 0:
+                count = flash(f,x-1,y-1,area,count)
+            if x > 0 and y < len(f[y])-1:
+                count = flash(f,x-1,y+1,area,count)
+        else:
+            f[y][x] = int(f[y][x]) + 1
+    return count
+
+# This was my puzzle input, replace with your own
+f = ['8261344656',
+'7773351175',
+'7527856852',
+'1763614673',
+'8674556743',
+'6853382153',
+'4135852388',
+'2846715522',
+'7477425863',
+'4723888888']
+
+
+
+count = 0
+
+for i in range (len(f)):
+    f[i] = splited(f[i])
+
+
+for i in range (100):
+    area = []
+    for y in range (len(f)):
+        for x in range (len(f[y])):
+            count = flash(f,x,y,area,count)
+
+
+print (count)
+
+
+step = 0
+check = False
+while not check:
+    step += 1
+    area = []
+    for y in range (len(f)):
+        for x in range (len(f[y])):
+            count = flash(f,x,y,area,count)
+
+    check = True
+    for i in range (len(f)):
+        for k in range (len(f[i])):
+            if f[i][k] != 0:
+                check = False
+
+print (step)
+
