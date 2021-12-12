@@ -1,0 +1,53 @@
+#12
+# This only gives results for part two and takes about 5 mins
+
+
+def find_all_paths(graph, start, end, twice, path=[]):
+        path = path + [start]
+        if start == end:
+            return [path]
+        if start not in graph:
+            return []
+        paths = []
+        for node in graph[start]:
+            if node not in path or node == node.upper() or (twice == node and path.count(node) < 2):
+                #print (start, node)
+                newpaths = find_all_paths(graph, node, end, twice, path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
+
+f = open("202112.txt","r").read().splitlines()
+
+d = {}
+
+for i in range (len(f)):
+    count = 0
+    while f[i][count] != "-":
+        count += 1
+    fnum = f[i][:count]
+    lnum = f[i][count+1:]
+
+    if fnum in d:
+        d[fnum].append(lnum)
+    else:
+        d[fnum] = [lnum]
+
+    if lnum in d:
+        d[lnum].append(fnum)
+    else:
+        d[lnum] = [fnum]
+    
+# traversal
+small = []
+for key in d:
+    if key != key.upper() and key != "start" and key != "end":
+        small.append(key)
+
+ans = []
+for i in range (len(small)):
+    l = find_all_paths(d,"start","end",small[i],[])
+    for n in range (len(l)):
+        if l[n] not in ans:
+            ans.append(l[n])
+print (len(ans))
